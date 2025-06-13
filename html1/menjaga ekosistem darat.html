@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menjaga Ekosistem Darat</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+      body, html {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: Arial, sans-serif;
+      background-color: #000; /* match hero background base */
+      color: white;
+    }
+
+    section {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .expandable {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+      margin-top: 1rem;
+      color: white;
+    }
+
+    .expandable.open {
+      max-height: 1000px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      z-index: 999;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .nav-right a:hover {
+      color: #4caf50;
+    }
+
+    .nav-left {
+      display: none;
+    }
+
+    .hero {
+      background-image: url('backgroundd.png');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 5rem 2rem 2rem 2rem;
+      height: calc(100vh - 60px); /* full viewport minus navbar */
+      margin-top: 60px; /* offset for fixed navbar */
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+
+    .explore-btn {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .explore-btn:hover {
+      background-color: #218838;
+    }
+
+    .section-yellow {
+      background-color: white;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      color: #000;
+    }
+
+    .related-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .related-title .line {
+      width: 5px;
+      height: 30px;
+      background-color: #2D8200;
+      margin-right: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .yellow-box, .orange-box {
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .yellow-box {
+      background-color: #2D8200;
+    }
+
+    .orange-box {
+      background-color: #005A32;
+    }
+
+    .yellow-box h2, .orange-box h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    .yellow-box p, .orange-box p {
+      margin: 1rem 0;
+    }
+
+    .read-btn {
+      padding: 0.8rem 1.5rem;
+      border: 2px solid white;
+      background: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      align-self: flex-start;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .read-btn:hover {
+      background-color: white;
+      color: #2D8200;
+    }
+
+    .image-box {
+      flex: 1;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .section-third {
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      background-color: grey;
+      color: white;
+    }
+
+    .third-row {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .text {
+      flex: 1;
+    }
+
+    .text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .text p {
+      font-size: 1.1rem;
+    }
+
+    .image {
+      flex: 1;
+    }
+
+    .image img {
+      width: 100%;
+      max-width: 600px;
+      height: 250px;
+      border-radius: 125px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .section-black {
+      background-color: #070707;
+      color: white;
+      padding: 2rem 2rem 1rem 2rem;
+      text-align: center;
+    }
+
+    .section-black .images {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .section-black img {
+      border-radius: 15px;
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+    }
+
+    .footer {
+      background-color: black;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; max-width: 100%; }
+      .nav-right { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="nav-right">
+        <a href="#home" >Home</a>
+        <a href="#menu" >Menu</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Halaman Pertama -->
+  <section id="home" class="hero">
+    <h1>Menjaga Ekosistem Darat</h1>
+    <p>Bersama lindungi ekosistem darat dan satwa demi masa depan bumi yang lebih baik.</p>
+    <button class="explore-btn" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'});">
+  Explore ↓
+</button>
+  </section>
+
+  <!-- Halaman Kedua -->
+  <section id="menu" class="section-yellow" tabindex="0">
+    <div class="related-title">
+      <div class="line" aria-hidden="true"></div>
+      <h2>Topik Terkait</h2>
+    </div>
+    <div class="row">
+      <div class="yellow-box">
+        <h2>DEFORESTASI</h2>
+        <p>Deforestasi adalah <strong>penggundulan atau penghancuran hutan</strong>, baik secara alami maupun akibat ulah manusia, yang menyebabkan hilangnya tutupan hutan secara permanen</p>
+        <button class="read-btn" onclick="toggleExpand(this)" aria-expanded="false">SELENGKAPNYA</button>
+        <div class="expandable" aria-hidden="true">
+          <p>1. Sebab deforestasi antara lain disebabkan oleh alih fungsi lahan untuk pertanian, perkebunan kelapa sawit, dan peternakan. Selain itu, penebangan liar untuk industri kayu, pembangunan infrastruktur seperti jalan dan pemukiman, serta kebakaran hutan yang disengaja atau akibat kelalaian juga menjadi penyebab utama berkurangnya tutupan hutan.</p>
+          <p>2. Akibat deforestasi sangat merugikan lingkungan dan manusia. Hilangnya hutan menyebabkan kerusakan ekosistem dan punahnya berbagai jenis flora dan fauna. Selain itu, deforestasi mempercepat pemanasan global karena pohon yang menyerap karbon dioksida berkurang drastis. Dampak lainnya adalah meningkatnya risiko bencana alam seperti banjir, tanah longsor, kekeringan, serta perubahan iklim di tingkat lokal dan global.</p>
+          <p>3. Cara mengatasi deforestasi bisa dilakukan dengan berbagai langkah seperti reboisasi atau penanaman kembali pohon di hutan yang gundul dan rusak. Penegakan hukum yang tegas terhadap praktik penebangan liar juga penting untuk menjaga kelestarian hutan. Selain itu, pengelolaan hutan secara berkelanjutan, pemanfaatan lahan secara efisien, serta edukasi dan kampanye kesadaran lingkungan kepada masyarakat turut berperan penting dalam mengurangi deforestasi.
+          </p>
+        </div>
+      </div>
+      <div class="image-box">
+        <img src="deforestasi.png" alt="Deforestasi">
+      </div>
+    </div>
+    <div class="row">
+      <div class="image-box">
+        <img src="erosii.jpg" alt="Erosi">
+      </div>
+      <div class="orange-box">
+        <h2>EROSI TANAH</h2>
+        <p>Erosi tanah adalah proses alami atau akibat aktivitas manusia yang menyebabkan <strong>perpindahan tanah dari satu tempat ke tempat lain oleh media alami seperti air atau angin</strong>. Proses ini mengakibatkan kehilangan lapisan atas tanah yang subur, mengurangi kesuburan lahan, dan berdampak buruk pada lingkungan dan pertanian.</p>
+        <button class="read-btn" onclick="toggleExpand(this)" aria-expanded="false">SELENGKAPNYA</button>
+        <div class="expandable" aria-hidden="true">
+          <p>1. Sebab erosi tanah meliputi curah hujan tinggi, kurangnya tutupan vegetasi, pengolahan lahan yang tidak ramah lingkungan, dan lereng yang terjal. Aktivitas manusia seperti penebangan hutan dan pertanian tanpa konservasi juga mempercepat terjadinya erosi.</p>
+          <p>2. Akibat erosi tanah antara lain berkurangnya kesuburan tanah karena lapisan atas tanah yang subur terbawa air, pendangkalan sungai dan waduk, serta meningkatnya risiko banjir dan longsor. Erosi juga dapat merusak lahan pertanian dan mengganggu keseimbangan ekosistem.</p>
+          <p>3. Cara mengatasi erosi tanah dapat dilakukan dengan menanam tanaman penutup tanah, membuat terasering di lahan miring, serta menjaga hutan dan vegetasi alami. Praktik pertanian konservasi seperti rotasi tanaman dan penggunaan mulsa juga membantu mengurangi risiko erosi.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="yellow-box">
+        <h2>POLUSI UDARA</h2>
+        <p>Polusi udara adalah <strong>pencemaran yang disebabkan oleh masuknya zat-zat berbahaya ke dalam atmosfer</strong>, yang dapat mengganggu kesehatan manusia dan lingkungan.</p>
+        <button class="read-btn" onclick="toggleExpand(this)" aria-expanded="false">SELENGKAPNYA</button>
+        <div class="expandable" aria-hidden="true">
+          <p>1. Sebab polusi udara berasal dari emisi kendaraan bermotor, asap pabrik, pembakaran sampah, asap rokok serta pembakaran hutan dan lahan. Penggunaan bahan bakar fosil seperti batu bara dan bensin juga menjadi penyumbang utama pencemaran udara.</p>
+          <p>2. Akibat polusi udara berdampak buruk pada kesehatan manusia seperti gangguan pernapasan, asma, dan penyakit jantung. Selain itu, polusi udara menyebabkan kerusakan lingkungan, hujan asam, dan berkontribusi terhadap pemanasan global serta penipisan lapisan ozon.</p>
+          <p>3. Cara mengatasi polusi udara dapat dilakukan dengan mengurangi penggunaan kendaraan bermotor, beralih ke energi bersih seperti tenaga surya dan angin, serta memperketat regulasi industri. Penanaman pohon dan peningkatan ruang terbuka hijau juga membantu menyaring polutan dan memperbaiki kualitas udara.
+          </p>
+        </div>
+      </div>
+      <div class="image-box">
+        <img src="polusi.png" alt="Polusi Udara">
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="image-box">
+        <img src="pemburuannhd.jpg" alt="Pemburuan">
+      </div>
+      <div class="yellow-box">
+        <h2>PEMBURUAN HEWAN LIAR</h2>
+        <p>Perburuan liar adalah <strong>perburuan atau penangkapan hewan secara ilegal, yang dilindungi oleh pemerintah</strong> dengan tujuan untuk mendapatkan bagian tubuhnya, seperti daging, tanduk, atau kulit. Ini merupakan pelanggaran hukum dan menjadi ancaman serius bagi kelangsungan hidup satwa liar, dan ekosistem darat.</p>
+        <button class="read-btn" onclick="toggleExpand(this)" aria-expanded="false">SELENGKAPNYA</button>
+        <div class="expandable" aria-hidden="true">
+          <p>1. Sebab pemburuan liar antara lain karena permintaan tinggi terhadap bagian tubuh hewan seperti gading, kulit, atau organ untuk dijual atau dijadikan bahan obat. Faktor lain termasuk lemahnya pengawasan hukum, kemiskinan, dan kurangnya kesadaran masyarakat terhadap pentingnya pelestarian satwa.</p>
+          <p>2. Akibat pemburuan liar adalah punahnya spesies hewan tertentu, terganggunya keseimbangan ekosistem, dan hilangnya keanekaragaman hayati. Jika dibiarkan, hal ini juga dapat merusak rantai makanan dan mempercepat krisis lingkungan.
+          </p>
+          <p>3. Cara mengatasi pemburuan liar meliputi penegakan hukum yang tegas terhadap pelaku, peningkatan patroli dan pengawasan di kawasan konservasi, serta edukasi kepada masyarakat tentang pentingnya perlindungan satwa. Selain itu, mendukung program konservasi dan pengembangan alternatif ekonomi ramah lingkungan bagi warga sekitar hutan juga menjadi solusi jangka panjang.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Halaman Ketiga -->
+  <section id="about" class="section-third" tabindex="0">
+    <div class="third-row">
+      <div class="image">
+        <img src="pegunungan.png" alt="About Us">
+      </div>
+      <div class="text">
+        <h2>About Us</h2>
+        <p>Website yang kami buat merupakan website edukatif dan aksi yang bertujuan meningkatkan kesadaran dan partisipasi masyarakat dalam menjaga dan melestarikan ekosistem darat.</p>
+      </div>
+    </div>
+    <div class="third-row">
+      <div class="text">
+        <h2>Visi</h2>
+        <p>Menjadi pusat informasi dan gerakan digital terdepan dalam perlindungan dan pelestarian ekosistem darat di Indonesia dan dunia.</p>
+      </div>
+      <div class="image">
+        <img src="misi.png" alt="Misi Kami">
+      </div>
+    </div>
+    <div class="third-row">
+      <div class="image">
+        <img src="visi.png" alt="Visi">
+      </div>
+      <div class="text">
+        <h2>Misi</h2>
+        <p>1. Meningkatkan kesadaran masyarakat akan pentingnya ekosistem darat melalui konten edukatif dan kampanye digital.</p>
+        <p>2. Mendorong inovasi dan solusi hijau berbasis teknologi untuk pelestarian alam.</p>
+        <p>3. Menyediakan data dan riset seputar ekosistem darat bagi publik.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section-black">
+    <div class="content">
+      <div class="images" role="list">
+        <img src="orangutan.png" alt="Dokumentasi satwa orangutan di hutan" role="listitem" />
+        <img src="harimau.png" alt="Dokumentasi harimau sumatera di habitat aslinya" role="listitem" />
+        <img src="komodo.png" alt="Dokumentasi komodo di taman nasional" role="listitem" />
+      </div>
+    </div>
+  </section>
+  <footer class="footer" role="contentinfo">
+    <p>Contact | Privacy Policy | Cookies</p>
+  </footer>
+<script>
+  function toggleExpand(button) {
+    const box = button.nextElementSibling;
+    box.classList.toggle("open");
+    const expanded = box.classList.contains("open");
+    button.textContent = expanded ? "SEMBUNYIKAN" : "SELENGKAPNYA";
+    button.setAttribute("aria-expanded", expanded);
+    box.setAttribute("aria-hidden", !expanded);
+  }
+</script>
+</body>
+</html>
